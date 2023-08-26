@@ -83,6 +83,7 @@ implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderI
         // Load more plugins here
         $this->addPlugin('Authentication');
         $this->addPlugin('Authorization');
+        $this->addPlugin('BootstrapUI');
     }
 
     /**
