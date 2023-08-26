@@ -69,6 +69,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+        $id = $this->request->getParam("id");
         $user = $this->Users->get($id, [
             'contain' => ['Articles'],
         ]);
@@ -105,6 +106,7 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        $id = $this->request->getParam("id");
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
@@ -129,6 +131,7 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        $id = $this->request->getParam("id");
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
