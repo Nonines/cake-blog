@@ -38,6 +38,12 @@ use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
 
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
+
 /**
  * Application setup class.
  *
@@ -45,7 +51,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * want to use in your application.
  */
 class Application extends BaseApplication
-implements AuthenticationServiceProviderInterface
+implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -76,6 +82,7 @@ implements AuthenticationServiceProviderInterface
 
         // Load more plugins here
         $this->addPlugin('Authentication');
+        $this->addPlugin('Authorization');
     }
 
     /**
@@ -111,6 +118,7 @@ implements AuthenticationServiceProviderInterface
 
             // Auth middleware
             ->add(new AuthenticationMiddleware($this))
+            ->add(new AuthorizationMiddleware($this))
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
@@ -165,6 +173,13 @@ implements AuthenticationServiceProviderInterface
         $service->loadIdentifier('Authentication.Password', compact('fields'));
 
         return $service;
+    }
+
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    {
+        $resolver = new OrmResolver();
+
+        return new AuthorizationService($resolver);
     }
 
     /**

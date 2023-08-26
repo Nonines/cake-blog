@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -75,10 +76,6 @@ class ArticlesTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
-
         $validator
             ->integer('category_id')
             ->allowEmptyString('category_id');

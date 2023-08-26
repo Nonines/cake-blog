@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Entity;
@@ -37,7 +38,7 @@ class Article extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
+        'user_id' => false,
         'category_id' => true,
         'title' => true,
         'slug' => true,
@@ -45,11 +46,9 @@ class Article extends Entity
         'image' => true,
         'caption' => true,
         'content' => true,
-        'created' => true,
-        'modified' => true,
-        'user' => true,
-        'category' => true,
-        'comments' => true,
-        'tags' => true,
+        // 'user' => true,
+        // 'category' => true,
+        // 'comments' => true,
+        // 'tags' => true,
     ];
 }
