@@ -30,7 +30,7 @@ $this->start('tb_body_start'); ?>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><?= $this->Html->link(__('Categories'), ['controller' => 'Categories', 'action' => 'list'], ["class" => "nav-link"]) ?></li>
-                    <li class="nav-item"><a class="nav-link" href="">Tags</a></li>
+                    <li class="nav-item"><?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'list'], ["class" => "nav-link"]) ?></li>
                 </ul>
             </div>
         </div>

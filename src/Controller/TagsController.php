@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -11,6 +12,12 @@ namespace App\Controller;
  */
 class TagsController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['show', 'list']);
+    }
+
     /**
      * Index method
      *
@@ -18,6 +25,7 @@ class TagsController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $tags = $this->paginate($this->Tags);
 
         $this->set(compact('tags'));
@@ -32,8 +40,9 @@ class TagsController extends AppController
      */
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $tag = $this->Tags->get($id, [
-            'contain' => ['Articles'],
+            'contain' => ['Articles', 'Articles.Users'],
         ]);
 
         $this->set(compact('tag'));
@@ -46,6 +55,7 @@ class TagsController extends AppController
      */
     public function add()
     {
+        $this->Authorization->skipAuthorization();
         $tag = $this->Tags->newEmptyEntity();
         if ($this->request->is('post')) {
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
@@ -69,6 +79,7 @@ class TagsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $tag = $this->Tags->get($id, [
             'contain' => ['Articles'],
         ]);
@@ -94,6 +105,7 @@ class TagsController extends AppController
      */
     public function delete($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'delete']);
         $tag = $this->Tags->get($id);
         if ($this->Tags->delete($tag)) {
@@ -103,5 +115,36 @@ class TagsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * List method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function list()
+    {
+        $this->Authorization->skipAuthorization();
+        $tags = $this->paginate($this->Tags);
+
+        $this->set(compact('tags'));
+    }
+
+    /**
+     * Show method
+     *
+     * @param string|null $id Tag id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function show()
+    {
+        $this->Authorization->skipAuthorization();
+        $id = $this->request->getParam("id");
+        $tag = $this->Tags->get($id, [
+            'contain' => ['Articles'],
+        ]);
+
+        $this->set(compact('tag'));
     }
 }

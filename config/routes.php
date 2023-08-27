@@ -45,14 +45,15 @@ return static function (RouteBuilder $routes) {
     });
 
     $routes->scope('/tags', ['_namePrefix' => 'tags:'], function (RouteBuilder $builder) {
-        $builder->connect('/', 'Tags::index');
+        $builder->connect("/", "Tags::list");
+        $builder->connect("/view/{id}", "Tags::show")->setPatterns(['id' => '[0-9]+']);
 
-        $builder->connect('/add', 'Tags::add');
-
-        $builder->connect('/view/*', 'Tags::view');
-
-        $builder->connect('/edit/*', 'Tags::edit');
-
-        $builder->connect('/delete/*', 'Tags::delete');
+        $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
+            $builder->connect('/', 'Tags::index');
+            $builder->connect('/add', 'Tags::add');
+            $builder->connect('/view/*', 'Tags::view');
+            $builder->connect('/edit/*', 'Tags::edit');
+            $builder->connect('/delete/*', 'Tags::delete');
+        });
     });
 };
