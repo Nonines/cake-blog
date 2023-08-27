@@ -3,36 +3,39 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Article $article
- * @var \Cake\Collection\CollectionInterface|string[] $users
- * @var \Cake\Collection\CollectionInterface|string[] $categories
- * @var \Cake\Collection\CollectionInterface|string[] $tags
+ * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
+ * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
+ * @var \App\Model\Entity\Comment[]|\Cake\Collection\CollectionInterface $comments
+ * @var \App\Model\Entity\Tag[]|\Cake\Collection\CollectionInterface $tags
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Articles'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="articles form content">
-            <?= $this->Form->create($article) ?>
-            <fieldset>
-                <legend><?= __('Add Article') ?></legend>
-                <?php
-                echo $this->Form->control('category_id', ['options' => $categories, 'empty' => true]);
-                echo $this->Form->control('title');
-                echo $this->Form->control('slug');
-                echo $this->Form->control('excerpt');
-                echo $this->Form->control('image');
-                echo $this->Form->control('caption');
-                echo $this->Form->control('content');
-                echo $this->Form->control('tags._ids', ['options' => $tags]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+<?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
+
+<?php $this->start('tb_actions'); ?>
+<li><?= $this->Html->link(__('List Articles'), ['controller' => 'Users', 'action' => 'view'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('View Blog'), ['controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Categories'), ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Edit Account'), ['action' => 'edit'], ['class' => 'nav-link']) ?></li>
+<?php $this->end(); ?>
+<?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
+
+<div class="articles form content">
+    <?= $this->Form->create($article) ?>
+    <fieldset>
+        <legend><?= __('Add Article') ?></legend>
+        <?php
+        echo $this->Form->control('category_id', ['options' => $categories, 'empty' => true]);
+        echo $this->Form->control('title');
+        echo $this->Form->control('slug');
+        echo $this->Form->control('excerpt');
+        echo $this->Form->control('image');
+        echo $this->Form->control('caption');
+        echo $this->Form->control('content');
+        echo $this->Form->control('tags._ids', ['options' => $tags]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>

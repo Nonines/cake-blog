@@ -5,97 +5,39 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Article'), ['action' => 'edit', $article->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Article'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Articles'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Article'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="articles view content">
-            <h3><?= h($article->title) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('User') ?></th>
-                    <td><?= $article->has('user') ? $this->Html->link($article->user->id, ['controller' => 'Users', 'action' => 'view', "id" => $article->user->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Category') ?></th>
-                    <td><?= $article->has('category') ? $this->Html->link($article->category->title, ['controller' => 'Categories', 'action' => 'view', $article->category->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Title') ?></th>
-                    <td><?= h($article->title) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Slug') ?></th>
-                    <td><?= h($article->slug) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Excerpt') ?></th>
-                    <td><?= h($article->excerpt) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Image') ?></th>
-                    <td><?= h($article->image) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Caption') ?></th>
-                    <td><?= h($article->caption) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($article->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($article->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($article->modified) ?></td>
-                </tr>
-            </table>
-            <div class="text">
-                <strong><?= __('Content') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($article->content)); ?>
-                </blockquote>
-            </div>
-            <div class="related">
-                <h4><?= __('Related Tags') ?></h4>
-                <?php if (!empty($article->tags)) : ?>
-                    <div class="table-responsive">
-                        <table>
-                            <tr>
-                                <th><?= __('Id') ?></th>
-                                <th><?= __('Title') ?></th>
-                                <th><?= __('Created') ?></th>
-                                <th><?= __('Modified') ?></th>
-                                <th class="actions"><?= __('Actions') ?></th>
-                            </tr>
-                            <?php foreach ($article->tags as $tags) : ?>
-                                <tr>
-                                    <td><?= h($tags->id) ?></td>
-                                    <td><?= h($tags->title) ?></td>
-                                    <td><?= h($tags->created) ?></td>
-                                    <td><?= h($tags->modified) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['controller' => 'Tags', 'action' => 'view', $tags->id]) ?>
-                                        <?= $this->Html->link(__('Edit'), ['controller' => 'Tags', 'action' => 'edit', $tags->id]) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Tags', 'action' => 'delete', $tags->id], ['confirm' => __('Are you sure you want to delete # {0}?', $tags->id)]) ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
-                    </div>
-                <?php endif; ?>
-            </div>
+<?php $this->extend('/layout/TwitterBootstrap/cover'); ?>
 
+<div class="col-lg-8">
+    <div class="row">
+        <div class="text-light">
+            <!-- Post header-->
+            <header class="mb-4 pt-5">
+                <!-- Post title-->
+                <h1 class="fw-bolder mb-1"><?= h($article->title) ?></h1>
+                <!-- Post meta content-->
+                <div class="text-muted fst-italic mb-2">Posted on <?= h($article->created) ?> by <?= h($article->user->email) ?></div>
+                <!-- Post categories-->
+                <a class="badge bg-secondary text-decoration-none link-light" href=""><?= $article->category_id ? h($article->category->title) : "Article" ?></a>
+            </header>
+            <div class="col-lg-8">
+                <!-- Post content-->
+                <article>
+                    <!-- Preview image figure-->
+                    <figure class="mb-4"><img class="img-fluid rounded" src="" alt="..." /></figure>
+                    <!-- Post content-->
+                    <section class="mb-1">
+                        <h2 class="fw-bolder mb-4 mt-5"><?= h($article->excerpt) ?></h2>
+                        <p class="fs-5 mb-4"><?= h($article->content) ?></p>
+                    </section>
+                    <!-- Tags -->
+                    <section class="mb-4">
+                        Tags:
+                        <?php foreach ($article->tags as $tag) : ?>
+                            <span class="badge text-bg-secondary me-1"><a href="" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><?= h($tag->title) ?></a></span>
+                        <?php endforeach ?>
+                    </section>
+                </article>
+            </div>
         </div>
     </div>
 </div>

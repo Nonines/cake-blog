@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @var \Cake\View\View $this
  */
+
 use Cake\Core\Configure;
 
 $this->start('html');
@@ -18,22 +20,28 @@ $this->prepend(
 );
 
 $this->start('tb_body_start'); ?>
-<body <?= $this->fetch('tb_body_attrs') ?>>
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-            <div>
-                <h3 class="float-md-start mb-0"><?= Configure::read('App.title') ?></h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <?= $this->fetch('tb_topnav') ?>
-                </nav>
+
+<body class="d-flex flex-column min-vh-100 bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Blog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Tags</a></li>
+                </ul>
             </div>
-        </header>
-        <main role="main" class="px-3">
+        </div>
+    </nav>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <main role="main" class="px-3 d-flex justify-content-center">
             <?= $this->fetch('content') ?>
         </main>
-<?php $this->end(); ?>
+        <?php $this->end(); ?>
 
-<?php $this->start('tb_body_end'); ?>
+        <?php $this->start('tb_body_end'); ?>
     </div>
 </body>
 <?php $this->end(); ?>

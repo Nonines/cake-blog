@@ -49,6 +49,6 @@ class Article extends Entity
         // 'user' => true,
         // 'category' => true,
         // 'comments' => true,
-        // 'tags' => true,
+        'tags' => true,
     ];
 }
