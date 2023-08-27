@@ -3,6 +3,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Article $article
+ * @var \App\Model\Entity\Comment $comment
  */
 ?>
 <?php $this->extend('/layout/TwitterBootstrap/cover'); ?>
@@ -37,6 +38,31 @@
                         <?php endforeach ?>
                     </section>
                 </article>
+
+                <!-- comment section -->
+                <section class="mb-5">
+                    <div class="card bg-dark">
+                        <div class="card-body">
+                            <!-- Comment form-->
+                            <?= $this->Form->create($comment, ['url' => [
+                                'controller' => 'Comments',
+                                'action' => 'add'
+                            ]]); ?>
+                            <fieldset>
+                                <legend><?= __('Add comment') ?></legend>
+                                <?php
+                                echo $this->Form->hidden('article_id', ['default' => $article->id]);
+                                echo $this->Form->control('name');
+                                echo $this->Form->control('content');
+                                ?>
+                            </fieldset>
+                            <?= $this->Form->button(__('Submit')) ?>
+                            <?= $this->Form->end() ?>
+
+                            <!-- comments -->
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>

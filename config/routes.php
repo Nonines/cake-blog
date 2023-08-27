@@ -31,6 +31,14 @@ return static function (RouteBuilder $routes) {
         });
     });
 
+    $routes->scope('/comments', ['_namePrefix' => 'comments:'], function (RouteBuilder $builder) {
+        $builder->connect('/add', 'Comments::add');
+
+        // $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
+        //     $builder->connect('/delete/*', 'Comments::delete');
+        // });
+    });
+
     $routes->scope('/categories', ['_namePrefix' => 'categories:'], function (RouteBuilder $builder) {
         $builder->connect("/", "Categories::list");
         $builder->connect("/view/{id}", "Categories::show")->setPatterns(['id' => '[0-9]+']);

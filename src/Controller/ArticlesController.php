@@ -30,11 +30,11 @@ class ArticlesController extends AppController
         $this->Authorization->skipAuthorization();
 
         $article = $this->Articles->get($id, [
-            'contain' => ['Users', 'Categories', 'Tags'],
-            // 'contain' => ['Users', 'Categories', 'Tags', 'Comments'],
+            'contain' => ['Users', 'Categories', 'Tags', 'Comments'],
         ]);
+        $comment = $this->fetchTable('Comments')->newEmptyEntity();
 
-        $this->set(compact('article'));
+        $this->set(compact('article', 'comment'));
     }
 
     public function add()
@@ -57,10 +57,9 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
-        $users = $this->Articles->Users->find('list', ['limit' => 200])->all();
         $categories = $this->Articles->Categories->find('list', ['limit' => 200])->all();
         $tags = $this->Articles->Tags->find('list', ['limit' => 200])->all();
-        $this->set(compact('article', 'users', 'categories', 'tags'));
+        $this->set(compact('article', 'categories', 'tags'));
     }
 
     public function edit($id = null)
@@ -82,10 +81,9 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
-        $users = $this->Articles->Users->find('list', ['limit' => 200])->all();
         $categories = $this->Articles->Categories->find('list', ['limit' => 200])->all();
         $tags = $this->Articles->Tags->find('list', ['limit' => 200])->all();
-        $this->set(compact('article', 'users', 'categories', 'tags'));
+        $this->set(compact('article', 'categories', 'tags'));
     }
 
     public function delete($id = null)

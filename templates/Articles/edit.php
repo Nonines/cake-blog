@@ -3,7 +3,6 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Article $article
- * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
  * @var \App\Model\Entity\Comment[]|\Cake\Collection\CollectionInterface $comments
  * @var \App\Model\Entity\Tag[]|\Cake\Collection\CollectionInterface $tags
