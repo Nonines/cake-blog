@@ -22,25 +22,26 @@ return static function (RouteBuilder $routes) {
     });
 
     $routes->scope('/articles', ['_namePrefix' => 'articles:'], function (RouteBuilder $builder) {
-        $builder->connect('/add', 'Articles::add');
-
         $builder->connect('/view/*', 'Articles::view');
 
-        $builder->connect('/edit/*', 'Articles::edit');
-
-        $builder->connect('/delete/*', 'Articles::delete');
+        $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
+            $builder->connect('/add', 'Articles::add');
+            $builder->connect('/edit/*', 'Articles::edit');
+            $builder->connect('/delete/*', 'Articles::delete');
+        });
     });
 
     $routes->scope('/categories', ['_namePrefix' => 'categories:'], function (RouteBuilder $builder) {
-        $builder->connect('/', 'Categories::index');
+        $builder->connect("/", "Categories::list");
+        $builder->connect("/view/{id}", "Categories::show")->setPatterns(['id' => '[0-9]+']);
 
-        $builder->connect('/add', 'Categories::add');
-
-        $builder->connect('/view/*', 'Categories::view');
-
-        $builder->connect('/edit/*', 'Categories::edit');
-
-        $builder->connect('/delete/*', 'Categories::delete');
+        $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
+            $builder->connect('/', 'Categories::index');
+            $builder->connect('/add', 'Categories::add');
+            $builder->connect('/view/*', 'Categories::view');
+            $builder->connect('/edit/*', 'Categories::edit');
+            $builder->connect('/delete/*', 'Categories::delete');
+        });
     });
 
     $routes->scope('/tags', ['_namePrefix' => 'tags:'], function (RouteBuilder $builder) {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -11,6 +12,12 @@ namespace App\Controller;
  */
 class CategoriesController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+    }
+
     /**
      * Index method
      *
@@ -18,6 +25,7 @@ class CategoriesController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $categories = $this->paginate($this->Categories);
 
         $this->set(compact('categories'));
@@ -32,8 +40,9 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $category = $this->Categories->get($id, [
-            'contain' => ['Articles'],
+            'contain' => ['Articles', 'Articles.Users'],
         ]);
 
         $this->set(compact('category'));
@@ -46,6 +55,7 @@ class CategoriesController extends AppController
      */
     public function add()
     {
+        $this->Authorization->skipAuthorization();
         $category = $this->Categories->newEmptyEntity();
         if ($this->request->is('post')) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
@@ -68,6 +78,7 @@ class CategoriesController extends AppController
      */
     public function edit($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $category = $this->Categories->get($id, [
             'contain' => [],
         ]);
@@ -92,6 +103,7 @@ class CategoriesController extends AppController
      */
     public function delete($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'delete']);
         $category = $this->Categories->get($id);
         if ($this->Categories->delete($category)) {
@@ -101,5 +113,36 @@ class CategoriesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * List method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function list()
+    {
+        $this->Authorization->skipAuthorization();
+        $categories = $this->paginate($this->Categories);
+
+        $this->set(compact('categories'));
+    }
+
+    /**
+     * Show method
+     *
+     * @param string|null $id Category id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function show()
+    {
+        $this->Authorization->skipAuthorization();
+        $id = $this->request->getParam("id");
+        $category = $this->Categories->get($id, [
+            'contain' => ['Articles'],
+        ]);
+
+        $this->set(compact('category'));
     }
 }
