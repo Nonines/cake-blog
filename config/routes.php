@@ -33,10 +33,7 @@ return static function (RouteBuilder $routes) {
 
     $routes->scope('/comments', ['_namePrefix' => 'comments:'], function (RouteBuilder $builder) {
         $builder->connect('/add', 'Comments::add');
-
-        // $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
-        //     $builder->connect('/delete/*', 'Comments::delete');
-        // });
+        $builder->connect('/reply/{comment_id}/{article_id}', 'Comments::reply')->setPatterns(['comment_id' => '[0-9]+', 'article_id' => '[0-9]+']);
     });
 
     $routes->scope('/categories', ['_namePrefix' => 'categories:'], function (RouteBuilder $builder) {

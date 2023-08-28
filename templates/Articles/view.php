@@ -63,6 +63,7 @@
                             <h1 class="mt-3">Comments</h1>
                             <?= $this->element('comment', [
                                 'comments' => $article->comments,
+                                "article_id" => $article->id
                             ]); ?>
                         </div>
                     </div>

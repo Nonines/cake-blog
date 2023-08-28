@@ -10,7 +10,7 @@ class CommentsController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['add']);
+        $this->Authentication->addUnauthenticatedActions(['add', 'reply']);
     }
 
     public function add()
@@ -31,23 +31,14 @@ class CommentsController extends AppController
         }
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Comment id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    // public function delete($id = null)
-    // {
-    //     $this->request->allowMethod(['post', 'delete']);
-    //     $comment = $this->Comments->get($id);
-    //     if ($this->Comments->delete($comment)) {
-    //         $this->Flash->success(__('The comment has been deleted.'));
-    //     } else {
-    //         $this->Flash->error(__('The comment could not be deleted. Please, try again.'));
-    //     }
+    public function reply()
+    {
+        $this->Authorization->skipAuthorization();
+        $comment_id = $this->request->getParam("comment_id");
+        $article_id = $this->request->getParam("article_id");
 
-    //     return $this->redirect(['action' => 'index']);
-    // }
+        $comment = $this->Comments->get($comment_id);
+        $comment_entity = $this->Comments->newEmptyEntity();
+        $this->set(compact('comment', 'comment_entity', 'article_id'));
+    }
 }

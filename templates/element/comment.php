@@ -6,7 +6,7 @@
             <?= h($comment->content) ?>
         </div>
         <div class="flex-shrink-0">
-            <a href="">Reply</a>
+            <?= $this->Html->link(__('Reply'), ['controller' => "Comments", 'action' => 'reply', "comment_id" => $comment->id, "article_id" => $article->id]) ?>
         </div>
     </div>
 
