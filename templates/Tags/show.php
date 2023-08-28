@@ -14,7 +14,7 @@
         <div class="">
             <header class="mb-4 pt-5">
                 <!-- Post title-->
-                <h1 class="fw-bolder mb-1 text-light"><?= h($tag->title) ?></h1>
+                <h1 class="fw-bolder mb-1 text-light">Articles tagged with <?= h($tag->title) ?></h1>
             </header>
 
             <?php foreach ($tag->articles as $article) : ?>

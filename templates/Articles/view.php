@@ -18,7 +18,11 @@
                 <!-- Post meta content-->
                 <div class="text-muted fst-italic mb-2">Posted on <?= h($article->created) ?> by <?= h($article->user->email) ?></div>
                 <!-- Post categories-->
-                <a class="badge bg-secondary text-decoration-none link-light" href=""><?= $article->category_id ? h($article->category->title) : "Article" ?></a>
+                <?php if ($article->category_id) : ?>
+                    <?= $this->Html->link(__($article->category->title), ["_name" => "categories:show", "id" => $article->category_id], ['class' => 'badge bg-secondary text-decoration-none link-light']) ?>
+                <?php else : ?>
+                    <p class="badge bg-secondary text-decoration-none link-light">Article</p>
+                <?php endif ?>
             </header>
             <div class="col-lg-8">
                 <!-- Post content-->
@@ -34,7 +38,9 @@
                     <section class="mb-4">
                         Tags:
                         <?php foreach ($article->tags as $tag) : ?>
-                            <span class="badge text-bg-secondary me-1"><a href="" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><?= h($tag->title) ?></a></span>
+                            <span class="badge text-bg-secondary me-1">
+                                <?= $this->Html->link(__($tag->title), ["_name" => "tags:show", "id" => $tag->id], ['class' => "link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"]) ?>
+                            </span>
                         <?php endforeach ?>
                     </section>
                 </article>
