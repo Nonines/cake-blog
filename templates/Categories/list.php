@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <h2 class="card-title h4"><?= h($category->title) ?></h2>
                         <p class="card-text"><?= h($category->description) ?></p>
-                        <?= $this->Html->link(__('View articles →'), ['controller' => "Categories", 'action' => 'show', "id" => $category->id], ["class" => "btn btn-primary"]) ?>
+                        <?= $this->Html->link(__('View articles →'), ['_name' => 'categories:show', "id" => $category->id], ["class" => "btn btn-primary"]) ?>
                     </div>
                 </div>
             <?php endforeach ?>

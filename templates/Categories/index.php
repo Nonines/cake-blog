@@ -9,8 +9,8 @@
 
 <?php $this->start('tb_actions'); ?>
 <li><?= $this->Html->link(__('New Category'), ['action' => 'add'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('List Articles'), ['controller' => 'Users', 'action' => 'view'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('List Articles'), ["_name" => "admin:home"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('New Article'), ["_name" => "articles:admin:add"], ['class' => 'nav-link']) ?></li>
 <?php $this->end(); ?>
 <?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
 
@@ -34,9 +34,9 @@
                 <td><?= h($category->created) ?></td>
                 <td><?= h($category->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $category->id], ['title' => __('View'), 'class' => 'btn btn-secondary']) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id], ['title' => __('Edit'), 'class' => 'btn btn-secondary']) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'title' => __('Delete'), 'class' => 'btn btn-danger']) ?>
+                    <?= $this->Html->link(__('View'), ["_name" => "categories:admin:view", "id" => $category->id], ['title' => __('View'), 'class' => 'btn btn-secondary']) ?>
+                    <?= $this->Html->link(__('Edit'), ["_name" => "categories:admin:edit", "id" => $category->id], ['title' => __('Edit'), 'class' => 'btn btn-secondary']) ?>
+                    <?= $this->Form->postLink(__('Delete'), ["_name" => "categories:admin:delete", "id" => $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'title' => __('Delete'), 'class' => 'btn btn-danger']) ?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -18,7 +18,7 @@
             <?php foreach ($tags as $tag) : ?>
                 <div class="card mb-4 text-dark">
                     <div class="card-body">
-                        <h2 class="card-title h4"><?= $this->Html->link(__(h($tag->title)), ['controller' => "Tags", 'action' => 'show', "id" => $tag->id], ["class" => ""]) ?></h2>
+                        <h2 class="card-title h4"><?= $this->Html->link(__(h($tag->title)), ['_name' => 'tags:show', "id" => $tag->id], ["class" => ""]) ?></h2>
                     </div>
                 </div>
             <?php endforeach ?>

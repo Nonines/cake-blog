@@ -29,13 +29,13 @@ $this->start('tb_body_start'); ?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item"><?= $this->Html->link(__('Categories'), ['controller' => 'Categories', 'action' => 'list'], ["class" => "nav-link"]) ?></li>
-                    <li class="nav-item"><?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'list'], ["class" => "nav-link"]) ?></li>
+                    <li class="nav-item"><?= $this->Html->link(__('Categories'), ['_name' => 'categories:list'], ["class" => "nav-link"]) ?></li>
+                    <li class="nav-item"><?= $this->Html->link(__('Tags'), ['_name' => 'tags:list'], ["class" => "nav-link"]) ?></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
         <main role="main" class="px-3 d-flex justify-content-center">
             <?= $this->fetch('content') ?>
         </main>

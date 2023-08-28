@@ -8,12 +8,12 @@
 <?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>
-<li><?= $this->Html->link(__('Edit Category'), ['action' => 'edit', $category->id], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Form->postLink(__('Delete Category'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Edit Category'), ["_name" => "categories:admin:edit", "id" => $category->id], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Form->postLink(__('Delete Category'), ["_name" => "categories:admin:delete", "id" => $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'class' => 'nav-link']) ?></li>
 <li><?= $this->Html->link(__('List Categories'), ['action' => 'index'], ['class' => 'nav-link']) ?> </li>
 <li><?= $this->Html->link(__('New Category'), ['action' => 'add'], ['class' => 'nav-link']) ?> </li>
-<li><?= $this->Html->link(__('List Articles'), ['controller' => 'Users', 'action' => 'view'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('List Articles'), ["_name" => "admin:home"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('New Article'), ["_name" => "articles:admin:add"], ['class' => 'nav-link']) ?></li>
 <?php $this->end(); ?>
 <?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
 
@@ -53,20 +53,20 @@
                         <th scope="col"><?= __('Modified') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
-                    <?php foreach ($category->articles as $articles) : ?>
+                    <?php foreach ($category->articles as $article) : ?>
                         <tr>
-                            <td><?= h($articles->title) ?></td>
-                            <td><?= h($articles->user->email) ?></td>
-                            <td><?= h($articles->slug) ?></td>
-                            <td><?= h($articles->excerpt) ?></td>
-                            <td><?= h($articles->created) ?></td>
-                            <td><?= h($articles->modified) ?></td>
+                            <td><?= h($article->title) ?></td>
+                            <td><?= h($article->user->email) ?></td>
+                            <td><?= h($article->slug) ?></td>
+                            <td><?= h($article->excerpt) ?></td>
+                            <td><?= h($article->created) ?></td>
+                            <td><?= h($article->modified) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'view', $articles->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Html->link(__('View'), ['_name' => 'articles:view', "id" => $article->id], ['class' => 'btn btn-secondary']) ?>
 
-                                <?php if ($this->Identity->is($articles->user_id)) : ?>
-                                    <?= $this->Html->link(__('Edit'), ['controller' => 'Articles', 'action' => 'edit', $articles->id], ['class' => 'btn btn-secondary']) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Articles', 'action' => 'delete', $articles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $articles->id), 'class' => 'btn btn-danger']) ?>
+                                <?php if ($this->Identity->is($article->user_id)) : ?>
+                                    <?= $this->Html->link(__('Edit'), ['_name' => 'articles:admin:edit', "id" => $article->id], ['class' => 'btn btn-secondary']) ?>
+                                    <?= $this->Form->postLink(__('Delete'), ["_name" => "articles:admin:delete", "id" => $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'btn btn-danger']) ?>
                                 <?php endif; ?>
                             </td>
                         </tr>

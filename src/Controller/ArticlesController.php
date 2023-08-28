@@ -25,10 +25,10 @@ class ArticlesController extends AppController
         $this->set(compact('articles'));
     }
 
-    public function view($id = null)
+    public function view()
     {
         $this->Authorization->skipAuthorization();
-
+        $id = $this->request->getParam("id");
         $article = $this->Articles->get($id, [
             'contain' => ['Users', 'Categories', 'Tags', 'Comments', 'Comments.ChildComments'],
         ]);
@@ -62,8 +62,9 @@ class ArticlesController extends AppController
         $this->set(compact('article', 'categories', 'tags'));
     }
 
-    public function edit($id = null)
+    public function edit()
     {
+        $id = $this->request->getParam("id");
         $article = $this->Articles->get($id, [
             'contain' => ['Tags'],
         ]);

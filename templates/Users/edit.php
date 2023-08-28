@@ -9,11 +9,11 @@
 <?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>
-<li><?= $this->Html->link(__('View Blog'), ['controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('Categories'), ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('Edit Account'), ['action' => 'edit'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('View Blog'), ["_name" => "home"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('New Article'), ["_name" => "articles:admin:add"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Categories'), ["_name" => "categories:admin:index"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Tags'), ["_name" => "tags:admin:index"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Edit Account'), ["_name" => "admin:edit"], ['class' => 'nav-link']) ?></li>
 <?php $this->end(); ?>
 <?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
 

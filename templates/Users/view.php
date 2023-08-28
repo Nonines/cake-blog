@@ -8,11 +8,11 @@
 <?php $this->extend('/layout/TwitterBootstrap/dashboard'); ?>
 
 <?php $this->start('tb_actions'); ?>
-<li><?= $this->Html->link(__('View Blog'), ['controller' => 'Articles', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('Categories'), ['controller' => 'Categories', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('Tags'), ['controller' => 'Tags', 'action' => 'index'], ['class' => 'nav-link']) ?></li>
-<li><?= $this->Html->link(__('Edit Account'), ['action' => 'edit'], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('View Blog'), ["_name" => "home"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('New Article'), ["_name" => "articles:admin:add"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Categories'), ["_name" => "categories:admin:index"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Tags'), ["_name" => "tags:admin:index"], ['class' => 'nav-link']) ?></li>
+<li><?= $this->Html->link(__('Edit Account'), ["_name" => "admin:edit"], ['class' => 'nav-link']) ?></li>
 <?php $this->end(); ?>
 <?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
 
@@ -52,18 +52,18 @@
                         <th scope="col"><?= __('Modified') ?></th>
                         <th scope="col" class="actions"><?= __('Actions') ?></th>
                     </tr>
-                    <?php foreach ($user->articles as $articles) : ?>
+                    <?php foreach ($user->articles as $article) : ?>
                         <tr>
-                            <td><?= h($articles->title) ?></td>
-                            <td><?= h($articles->slug) ?></td>
-                            <td><?= h($articles->excerpt) ?></td>
-                            <td><?= h($articles->content) ?></td>
-                            <td><?= h($articles->created) ?></td>
-                            <td><?= h($articles->modified) ?></td>
+                            <td><?= h($article->title) ?></td>
+                            <td><?= h($article->slug) ?></td>
+                            <td><?= h($article->excerpt) ?></td>
+                            <td><?= h($article->content) ?></td>
+                            <td><?= h($article->created) ?></td>
+                            <td><?= h($article->modified) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'view', $articles->id], ['class' => 'btn btn-secondary']) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Articles', 'action' => 'edit', $articles->id], ['class' => 'btn btn-secondary']) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Articles', 'action' => 'delete', $articles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $articles->id), 'class' => 'btn btn-danger']) ?>
+                                <?= $this->Html->link(__('View'), ['_name' => 'articles:view', "id" => $article->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Html->link(__('Edit'), ['_name' => 'articles:admin:edit', "id" => $article->id], ['class' => 'btn btn-secondary']) ?>
+                                <?= $this->Form->postLink(__('Delete'), ["_name" => "articles:admin:delete", "id" => $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id), 'class' => 'btn btn-danger']) ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

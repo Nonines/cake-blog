@@ -20,7 +20,7 @@ $this->start('tb_body_start');
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <?= $this->Html->link(
             "Admin home",
-            '/admin',
+            ['_name' => 'admin:home'],
             ['class' => 'navbar-brand col-md-3 col-lg-2 me-0 px-3']
         ) ?>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,13 +28,23 @@ $this->start('tb_body_start');
         </button>
         <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <?= $this->Html->link(
-                    "Sign out",
-                    '/admin/logout',
-                    ['class' => 'nav-link']
-                ) ?>
-            </li>
+            <?php if ($this->Identity->isLoggedIn()) : ?>
+                <li class="nav-item text-nowrap">
+                    <?= $this->Html->link(
+                        "Sign out",
+                        ['_name' => 'admin:logout'],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php else : ?>
+                <li class="nav-item text-nowrap">
+                    <?= $this->Html->link(
+                        "Sign in",
+                        ['_name' => 'admin:login'],
+                        ['class' => 'nav-link']
+                    ) ?>
+                </li>
+            <?php endif; ?>
         </ul>
     </header>
 
