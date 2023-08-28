@@ -30,7 +30,7 @@ class ArticlesController extends AppController
         $this->Authorization->skipAuthorization();
 
         $article = $this->Articles->get($id, [
-            'contain' => ['Users', 'Categories', 'Tags', 'Comments'],
+            'contain' => ['Users', 'Categories', 'Tags', 'Comments', 'Comments.ChildComments'],
         ]);
         $comment = $this->fetchTable('Comments')->newEmptyEntity();
 

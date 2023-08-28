@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -53,7 +54,7 @@ class CommentsTable extends Table
             'foreignKey' => 'article_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('ParentComments', [
+        $this->belongsTo('ParentComment', [
             'className' => 'Comments',
             'foreignKey' => 'parent_id',
         ]);
@@ -103,7 +104,7 @@ class CommentsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('article_id', 'Articles'), ['errorField' => 'article_id']);
-        $rules->add($rules->existsIn('parent_id', 'ParentComments'), ['errorField' => 'parent_id']);
+        $rules->add($rules->existsIn('parent_id', 'ParentComment'), ['errorField' => 'parent_id']);
 
         return $rules;
     }

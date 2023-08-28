@@ -60,6 +60,7 @@ class ArticlesTable extends Table
         ]);
         $this->hasMany('Comments', [
             'foreignKey' => 'article_id',
+            "conditions" => ['Comments.parent_id IS' => null]
         ]);
         $this->belongsToMany('Tags', [
             'foreignKey' => 'article_id',

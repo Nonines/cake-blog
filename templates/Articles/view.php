@@ -60,6 +60,10 @@
                             <?= $this->Form->end() ?>
 
                             <!-- comments -->
+                            <h1 class="mt-3">Comments</h1>
+                            <?= $this->element('comment', [
+                                'comments' => $article->comments,
+                            ]); ?>
                         </div>
                     </div>
                 </section>
