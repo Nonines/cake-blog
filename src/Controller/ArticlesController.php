@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Utility\Security;
+
 
 class ArticlesController extends AppController
 {
@@ -43,11 +45,13 @@ class ArticlesController extends AppController
         $this->Authorization->authorize($article);
 
         if ($this->request->is('post')) {
-            $article = $this->Articles->patchEntity($article, $this->request->getData());
+            $data = $this->request->getData();
+            $image_file = isset($data["image_file"]) ? $data["image_file"] : null;
 
+            $article = $this->Articles->patchEntity($article, $data);
             $article->user_id = $this->request->getAttribute('identity')->getIdentifier();
 
-            if ($this->Articles->save($article)) {
+            if ($this->Articles->save($article, ["image_file" => $image_file])) {
                 $this->Flash->success(__('The article has been saved.'));
 
                 return $this->redirect([
@@ -57,6 +61,7 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
+
         $categories = $this->Articles->Categories->find('list', ['limit' => 200])->all();
         $tags = $this->Articles->Tags->find('list', ['limit' => 200])->all();
         $this->set(compact('article', 'categories', 'tags'));
@@ -71,8 +76,12 @@ class ArticlesController extends AppController
         $this->Authorization->authorize($article);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $article = $this->Articles->patchEntity($article, $this->request->getData());
-            if ($this->Articles->save($article)) {
+            $data = $this->request->getData();
+            $image_file = isset($data["image_file"]) ? $data["image_file"] : null;
+
+            $article = $this->Articles->patchEntity($article, $data);
+
+            if ($this->Articles->save($article, ["image_file" => $image_file])) {
                 $this->Flash->success(__('The article has been saved.'));
 
                 return $this->redirect([
@@ -82,14 +91,16 @@ class ArticlesController extends AppController
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
+
         $categories = $this->Articles->Categories->find('list', ['limit' => 200])->all();
         $tags = $this->Articles->Tags->find('list', ['limit' => 200])->all();
         $this->set(compact('article', 'categories', 'tags'));
     }
 
-    public function delete($id = null)
+    public function delete()
     {
         $this->request->allowMethod(['post', 'delete']);
+        $id = $this->request->getParam("id");
         $article = $this->Articles->get($id);
         $this->Authorization->authorize($article);
 

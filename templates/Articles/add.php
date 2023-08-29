@@ -21,7 +21,7 @@
 <?php $this->assign('tb_sidebar', '<ul class="nav flex-column">' . $this->fetch('tb_actions') . '</ul>'); ?>
 
 <div class="articles form content">
-    <?= $this->Form->create($article) ?>
+    <?= $this->Form->create($article, ["enctype" => "multipart/form-data"]) ?>
     <fieldset>
         <legend><?= __('Add Article') ?></legend>
         <?php
@@ -29,7 +29,7 @@
         echo $this->Form->control('title');
         echo $this->Form->control('slug');
         echo $this->Form->control('excerpt');
-        echo $this->Form->control('image');
+        echo $this->Form->file('image_file', ['required' => false]);
         echo $this->Form->control('caption');
         echo $this->Form->control('content');
         echo $this->Form->control('tags._ids', ['options' => $tags]);
