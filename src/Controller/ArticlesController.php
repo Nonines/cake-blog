@@ -21,6 +21,8 @@ class ArticlesController extends AppController
 
         $this->paginate = [
             'contain' => ['Users', 'Categories'],
+            'order' => ['created' => 'desc'],
+            'limit' => 10
         ];
         $articles = $this->paginate($this->Articles);
 

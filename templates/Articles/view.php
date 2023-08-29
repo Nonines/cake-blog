@@ -28,7 +28,10 @@
                 <!-- Post content-->
                 <article>
                     <!-- Preview image figure-->
-                    <figure class="mb-4"><img class="img-fluid rounded" src="" alt="..." /></figure>
+                    <figure class="mb-4">
+                        <?= $this->Html->image($article->image ? 'articles/' . h($article->image) : 'article.jpg', array('width' => '100%', 'alt' => 'image', "class" => "img-fluid rounded"));
+                        ?>
+                    </figure>
                     <!-- Post content-->
                     <section class="mb-1">
                         <h2 class="fw-bolder mb-4 mt-5"><?= h($article->excerpt) ?></h2>
