@@ -51,7 +51,7 @@ return static function (RouteBuilder $routes) {
 
         $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
             $builder->connect('/', 'Tags::index', ['_name' => 'index']);
-            $builder->connect('/add', 'Tags::add');
+            $builder->connect('/add', 'Tags::add', ["_name" => "add"]);
             $builder->connect('/view/{id}', 'Tags::view', ['_name' => 'view'])->setPatterns(['id' => '[0-9]+']);
             $builder->connect('/edit/{id}', 'Tags::edit', ['_name' => 'edit'])->setPatterns(['id' => '[0-9]+']);
             $builder->connect('/delete/{id}', 'Tags::delete', ['_name' => 'delete'])->setPatterns(['id' => '[0-9]+']);

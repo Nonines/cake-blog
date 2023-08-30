@@ -12,6 +12,7 @@
         "cakephp/migrations": "^3.2",
         "cakephp/plugin-installer": "^1.3",
         "friendsofcake/bootstrap-ui": "^4.0",
+        "fzaninotto/faker": "^1.5",
         "mobiledetect/mobiledetectlib": "^3.74"
     },
     "require-dev": {
