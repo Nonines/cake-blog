@@ -21,15 +21,6 @@ class DatabaseSeed extends AbstractSeed
     }
 
     /**
-     * The Faker plugin is no longer maintained, and there are 3 errors in
-     * /vendor/fzaninotto/faker/src/Faker/Provider/Lorem.php where array
-     * join args are incorrectly ordered. As in:
-
-     * join($text, '');
-     * instead of:
-     * join('', $text);
-     *
-     * So gotta fix those lines (ln 95, 134, 208) to make the seeders work
-     * properly.
+     * bin/cake migrations seed --seed DatabaseSeed
      */
 }
