@@ -38,6 +38,7 @@ class ArticlesController extends AppController
         ]);
         $comment_entity = $this->fetchTable('Comments')->newEmptyEntity();
         $comments_table = $this->getTableLocator()->get('Comments');
+        $comments_table->recover();
 
         $this->set(compact('article', 'comment_entity', 'comments_table'));
     }
