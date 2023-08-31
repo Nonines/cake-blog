@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
+use ArrayObject;
 use Cake\ORM\Table;
+use Cake\ORM\RulesChecker;
+use Cake\Event\EventInterface;
 use Cake\Validation\Validator;
+use Cake\Datasource\EntityInterface;
+use Cake\Datasource\FactoryLocator;
 
 /**
  * Comments Model
@@ -49,6 +52,7 @@ class CommentsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Tree');
 
         $this->belongsTo('Articles', [
             'foreignKey' => 'article_id',
@@ -107,5 +111,17 @@ class CommentsTable extends Table
         $rules->add($rules->existsIn('parent_id', 'ParentComment'), ['errorField' => 'parent_id']);
 
         return $rules;
+    }
+
+    public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options)
+    {
+        // make sure child comment shares same article_id as parent comment
+        $parent_id = $options["parent_id"];
+        if ($parent_id) {
+            $comments = FactoryLocator::get('Table')->get('Comments');
+            $parent_comment = $comments->get($parent_id);
+            $article_id = $parent_comment->article_id;
+            $entity->article_id = $article_id;
+        }
     }
 }

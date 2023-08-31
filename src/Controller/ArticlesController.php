@@ -34,11 +34,12 @@ class ArticlesController extends AppController
         $this->Authorization->skipAuthorization();
         $id = $this->request->getParam("id");
         $article = $this->Articles->get($id, [
-            'contain' => ['Users', 'Categories', 'Tags', 'Comments', 'Comments.ChildComments'],
+            'contain' => ['Users', 'Categories', 'Tags', 'Comments'],
         ]);
-        $comment = $this->fetchTable('Comments')->newEmptyEntity();
+        $comment_entity = $this->fetchTable('Comments')->newEmptyEntity();
+        $comments_table = $this->getTableLocator()->get('Comments');
 
-        $this->set(compact('article', 'comment'));
+        $this->set(compact('article', 'comment_entity', 'comments_table'));
     }
 
     public function add()
@@ -48,7 +49,7 @@ class ArticlesController extends AppController
 
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $image_file = isset($data["image_file"]) ? $data["image_file"] : null;
+            $image_file = $this->request->getData()["image_file"];
 
             $article = $this->Articles->patchEntity($article, $data);
             $article->user_id = $this->request->getAttribute('identity')->getIdentifier();
@@ -79,7 +80,7 @@ class ArticlesController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            $image_file = isset($data["image_file"]) ? $data["image_file"] : null;
+            $image_file = $this->request->getData()["image_file"];
 
             $article = $this->Articles->patchEntity($article, $data);
 

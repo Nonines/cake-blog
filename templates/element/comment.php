@@ -1,4 +1,10 @@
 <?php foreach ($comments as $comment) : ?>
+    <?php
+    $replies = $comments_table
+        ->find('children', ['for' => $comment->id])
+        ->find('threaded')
+        ->toArray();
+    ?>
 
     <div class="d-flex my-4">
         <div class="ms-3">
@@ -10,11 +16,13 @@
         </div>
     </div>
 
-    <?php if ($comment->child_comments) : ?>
+    <?php if ($replies) : ?>
         <div class="ms-5">
-            <?= $this->element('comment', [
-                'comments' => $comment->child_comments
-            ]); ?>
+            <?=
+            $this->element('comment', [
+                'comments' => $replies
+            ]);
+            ?>
         </div>
     <?php endif; ?>
 <?php endforeach; ?>

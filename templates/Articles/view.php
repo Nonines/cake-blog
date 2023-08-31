@@ -53,10 +53,12 @@
                     <div class="card bg-dark">
                         <div class="card-body">
                             <!-- Comment form-->
-                            <?= $this->Form->create($comment, ['url' => [
+                            <?=
+                            $this->Form->create($comment_entity, ['url' => [
                                 'controller' => 'Comments',
                                 'action' => 'add'
-                            ]]); ?>
+                            ]]);
+                            ?>
                             <fieldset>
                                 <legend><?= __('Add comment') ?></legend>
                                 <?php
@@ -68,12 +70,15 @@
                             <?= $this->Form->button(__('Submit')) ?>
                             <?= $this->Form->end() ?>
 
-                            <!-- comments -->
+                            <!-- comments element-->
                             <h1 class="mt-3">Comments</h1>
-                            <?= $this->element('comment', [
-                                'comments' => $article->comments,
-                                "article_id" => $article->id
-                            ]); ?>
+                            <?=
+                            $this->element('comment', [
+                                "article_id" => $article->id,
+                                'comments_table' => $comments_table,
+                                "comments" => $article->comments
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </section>

@@ -17,10 +17,12 @@ class CommentsController extends AppController
     {
         $this->Authorization->skipAuthorization();
         $comment = $this->Comments->newEmptyEntity();
+
         if ($this->request->is('post')) {
+            $parent_id = $this->request->getData()["parent_id"];
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
 
-            if ($this->Comments->save($comment)) {
+            if ($this->Comments->save($comment, ["parent_id" => $parent_id])) {
                 $this->Flash->success(__('The comment has been saved.'));
 
                 return $this->redirect(["controller" => "Articles", "action" => "view", "id" => $this->request->getData("article_id")]);

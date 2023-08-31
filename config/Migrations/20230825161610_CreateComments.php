@@ -29,6 +29,20 @@ class CreateComments extends AbstractMigration
             'null' => true,
         ])->addForeignKey('parent_id', 'comments', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION']);
 
+        $table->addColumn('lft', 'integer', [
+            'default' => null,
+            'limit' => 11,
+            'null' => true,
+            'signed' => true,
+        ]);
+
+        $table->addColumn('rght', 'integer', [
+            'default' => null,
+            'limit' => 11,
+            'null' => true,
+            'signed' => true,
+        ]);
+
         $table->addColumn('name', 'string', [
             'default' => null,
             'limit' => 255,
