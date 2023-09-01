@@ -25,7 +25,7 @@ class TagsSeed extends AbstractSeed
         $data = [];
         for ($i = 0; $i < 5; $i++) {
             $data[] = [
-                'title' => $faker->word,
+                'title' => $faker->unique()->word,
                 'created' => date('Y-m-d H:i:s'),
                 'modified' => date('Y-m-d H:i:s'),
             ];
