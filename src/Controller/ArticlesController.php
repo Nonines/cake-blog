@@ -12,7 +12,7 @@ class ArticlesController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['index', 'view']);
+        $this->Authentication->addUnauthenticatedActions(['index', 'view', 'tags']);
     }
 
     public function index()
@@ -22,7 +22,7 @@ class ArticlesController extends AppController
         $this->paginate = [
             'contain' => ['Users', 'Categories'],
             'order' => ['created' => 'desc'],
-            'limit' => 10
+            'limit' => 6
         ];
         $articles = $this->paginate($this->Articles);
 
@@ -117,6 +117,19 @@ class ArticlesController extends AppController
         return $this->redirect([
             'controller' => 'Users',
             'action' => 'view',
+        ]);
+    }
+
+    public function tags()
+    {
+        $this->Authorization->skipAuthorization();
+        $tags = $this->request->getData("tags");
+        $tags = $tags ? $tags : [];
+
+        $articles = $this->Articles->find('tagged', ['tags' => $tags])->all();
+        $this->set([
+            'articles' => $articles,
+            'tags' => $tags
         ]);
     }
 }

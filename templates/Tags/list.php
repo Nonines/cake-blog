@@ -4,16 +4,19 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Tag[]|\Cake\Collection\CollectionInterface $tags
  */
+$cell = $this->cell('TagsSearch');
 ?>
 
 <?php $this->extend('/layout/TwitterBootstrap/cover'); ?>
 
 <div class="col-lg-8">
     <div class="row">
-        <div class="text-light">
+        <div class="">
             <header class="mb-4 pt-5">
                 <h1 class="fw-bolder mb-1 text-light">Tags</h1>
             </header>
+
+            <div class="mb-5"><?= $cell->render() ?></div>
 
             <?php foreach ($tags as $tag) : ?>
                 <div class="card mb-4 text-dark">

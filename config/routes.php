@@ -19,6 +19,7 @@ return static function (RouteBuilder $routes) {
 
     $routes->scope('/articles', ['_namePrefix' => 'articles:'], function (RouteBuilder $builder) {
         $builder->connect('/view/{id}', 'Articles::view', ['_name' => 'view'])->setPatterns(['id' => '[0-9]+']);
+        $builder->connect('/tags', 'Articles::tags', ['_name' => 'tags']);
 
         $builder->scope('/admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $builder) {
             $builder->connect('/add', 'Articles::add', ['_name' => 'add']);

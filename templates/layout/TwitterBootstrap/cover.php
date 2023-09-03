@@ -21,6 +21,9 @@ $this->prepend(
 
 $this->start('tb_body_start'); ?>
 
+<?= $this->Html->css("https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"); ?>
+<?= $this->Html->script(["https://code.jquery.com/jquery-3.7.0.js", "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"]); ?>
+
 <body class="d-flex flex-column min-vh-100 bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -43,6 +46,13 @@ $this->start('tb_body_start'); ?>
 
         <?php $this->start('tb_body_end'); ?>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+
 </body>
 <?php $this->end(); ?>
 

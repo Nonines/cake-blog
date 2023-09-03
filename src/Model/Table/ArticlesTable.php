@@ -197,4 +197,29 @@ class ArticlesTable extends Table
             }
         }
     }
+
+    public function findTagged(Query $query, array $options)
+    {
+        $columns = [
+            'Articles.id', 'Articles.user_id', 'Articles.title',
+            'Articles.content', 'Articles.image', 'Articles.created',
+            'Articles.caption', 'Articles.excerpt'
+        ];
+
+        $query = $query
+            ->select($columns)
+            ->distinct($columns);
+
+        // If there are no tags provided, find articles that have no tags
+        if (empty($options['tags'])) {
+            $query->leftJoinWith('Tags')
+                ->where(['Tags.title IS' => null]);
+        } else {
+            // Find articles that have one or more of the provided tags.
+            $query->innerJoinWith('Tags')
+                ->where(['Tags.title IN' => $options['tags']]);
+        }
+
+        return $query->group(['Articles.id']);
+    }
 }
