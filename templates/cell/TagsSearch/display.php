@@ -5,11 +5,11 @@
     ]]) ?>
     <fieldset class="mb-1">
         <legend class="fs-5 text-light"><?= __('Find related articles') ?></legend>
-        <select class="js-example-basic-multiple form-select text-dark" id="tags" name="tags[]" multiple="multiple">
-            <?php foreach ($tags as $tag) : ?>
-                <option value="<?= h($tag->title) ?>"><?= h($tag->title) ?></option>
-            <?php endforeach ?>
-        </select>
+
+
+        <?= $this->Form->select("tags", $tags, [
+            "id" => "tags", "multiple" => true, "class" => "js-example-basic-multiple form-select text-dark"
+        ]); ?>
     </fieldset>
     <?= $this->Form->button(__('Search')) ?>
     <?= $this->Form->end() ?>

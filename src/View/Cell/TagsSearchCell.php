@@ -35,7 +35,7 @@ class TagsSearchCell extends Cell
      */
     public function display()
     {
-        $tags = $this->fetchTable('Tags')->find('all');
+        $tags = $this->fetchTable('Tags')->find('list', ['keyField' => 'title', 'valueField' => 'title']);
         $this->set(compact("tags"));
     }
 }
