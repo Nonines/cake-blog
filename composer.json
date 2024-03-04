@@ -13,7 +13,7 @@
         "cakephp/plugin-installer": "^1.3",
         "fakerphp/faker": "^1.23",
         "friendsofcake/bootstrap-ui": "^4.0",
-        "mobiledetect/mobiledetectlib": "^3.74"
+        "mobiledetect/mobiledetectlib": "^4.8"
     },
     "require-dev": {
         "cakephp/bake": "^2.6",
